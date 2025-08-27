@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title" fill="none">
+  <title>VisionCast icon</title>
+  <defs><style>.vc{color:#124170;}</style></defs>
+  <!-- Eye outline -->
+  <path d="M32 256C112 128 224 96 256 96s144 32 224 160C400 384 288 416 256 416S112 384 32 256Z"
+        stroke="currentColor" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" fill="none" class="vc"/>
+  <!-- Play button -->
+  <path d="M214 214c0-8 9-13 16-9l88 51c7 4 7 14 0 18l-88 51c-7 4-16-1-16-9z" fill="currentColor" class="vc"/>
+</svg>
