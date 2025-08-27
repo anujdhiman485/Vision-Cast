@@ -16,7 +16,7 @@ const Hero = () => {
             </h1>
             <p className='mt-4 max-w-xs sm:max-w-lg 2xl:max-w-xl m-auto
             max-sm:text-xs test-grey-600'> 
-                 images and videos with AI, then schedule and auto-post to Social Media and more on  dashboard.
+                Generate images and videos with AI, then schedule and auto-post to Social Media and more on  dashboard.
             </p>
         </div>
         <div className='flex flex-wrap justify-center gap-4 text-sm max-sm:text-xs'>
