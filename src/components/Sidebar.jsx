@@ -3,53 +3,77 @@ import { House, Image, LogOut, SquarePen, Video } from 'lucide-react'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-const navItems=[
-    {to:'/ai', label:'Dashboard',Icon : House},
-    {to:'/ai/generate-image', label:'Generate Images',Icon : Image},
-    {to:'/ai/generate-videos', label:'Generate Videos',Icon : Video},
-    {to:'/ai/post-insta', label:'Post On Meta',Icon : SquarePen},
-    {to:'/ai/post-x', label:'Post On X ',Icon : SquarePen},
-    
+const navItems = [
+  { to: '/ai', label: 'Dashboard', Icon: House },
+  { to: '/ai/generate-image', label: 'Generate Images', Icon: Image },
+  { to: '/ai/generate-videos', label: 'Generate Videos', Icon: Video },
+  { to: '/ai/post-insta', label: 'Post On Meta', Icon: SquarePen },
+  { to: '/ai/post-x', label: 'Post On X', Icon: SquarePen },
 ]
 
 const Sidebar = ({ sidebar, setSidebar }) => {
   const { user } = useUser()
-  const { signout, openUserProfile } = useClerk()
+  const { signOut } = useClerk()
+
   return (
-    <div className={`w-60 bg-white border-r border-gray-200 flex flex-col justify-between items-center max-sm:absolute top-14 bottom-0 ${sidebar ? 'translate-x-0' : 'max-sm:-translate-x-full'} transition-transform duration-300 ease-in-out`}>
+    <div
+      className={`w-60 bg-[#1A1A1A] border-r border-[#333333] flex flex-col justify-between items-center 
+      max-sm:absolute top-14 bottom-0 
+      ${sidebar ? 'translate-x-0' : 'max-sm:-translate-x-full'} 
+      transition-transform duration-300 ease-in-out 
+      overflow-hidden`}   // 👈 no scroll in sidebar
+    >
+      {/* User Profile Section */}
       <div className='my-7 w-full flex flex-col items-center'>
-        <img src={user.imageUrl} alt="User Avatar" className='w-13 rounded-full mx-auto' />
-        <h1 className='mt-1 text-center'>{user.fullName}</h1>
-        <div className='px-6 mt-5 text-sm text-grey-500 font-medium'>
-            {navItems.map((item) => (
-               <NavLink
-                 key={item.to}
-                 to={item.to}
-                 end={item.to === '/ai'}
-                 onClick={() => setSidebar(false)}
-                 className={({ isActive }) =>
-                   `px-3.5 py-2.5 flex items-center gap-3 rounded ${isActive ? 'bg-gradient-to-r from-[#3C81F6] to-[#124170] text-white' : ''}`
-                 }
-               >
-                 {({ isActive }) => (
-                   <>
-                     <item.Icon className={`w-4 h-4 ${isActive ? 'text-white' : ''}`} />
-                     {item.label}
-                   </>
-                 )}
-               </NavLink>
-            ))}
+        <div className='relative mb-4'>
+          <img
+            src={user?.imageUrl}
+            alt="User Avatar"
+            className='w-16 h-16 rounded-full mx-auto border-4 border-[#FFD700] shadow-lg'
+          />
+          <div className='absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-[#1A1A1A]'></div>
         </div>
-      </div>
-      <div className='w-full border-t border-gray-200 p-4 px-7 flex items-center justify-between'>
-        <div onClick={openUserProfile} className='flex gap-2 item-center cursor-pointer'>
-         <img src={user.imageUrl} className='w-8 rounded-full' alt="" />
-         <div>
-          <h1 className='text-sm font-medium'>{user.fullName}</h1>
-         </div>
+        <h1 className='text-center font-semibold text-[#FFD700] text-lg'>{user?.fullName}</h1>
+        <p className='text-gray-400 text-sm'>Free Member</p>
+
+        {/* Navigation Items */}
+        <div className='px-4 mt-8 text-sm font-medium w-full space-y-2'>
+          {navItems.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.to === '/ai'}
+              onClick={() => setSidebar(false)}
+              className={({ isActive }) =>
+                `px-4 py-3 flex items-center gap-3 rounded-lg transition-all duration-200 ${
+                  isActive
+                    ? 'bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-[#0F0F0F] shadow-lg'
+                    : 'text-gray-300 hover:bg-[#2A2A2A] hover:text-[#FFD700] hover:border-[#FFD700]/30'
+                }`
+              }
+            >
+              {({ isActive }) => (
+                <>
+                  <item.Icon className={`w-5 h-5 ${isActive ? 'text-[#0F0F0F]' : ''}`} />
+                  <span className='font-medium'>{item.label}</span>
+                </>
+              )}
+            </NavLink>
+          ))}
         </div>
-        <LogOut onClick={signout} className='w-4.5 text-gray-400 hover:text-gray-700 transition cursor-pointer'/>
-       
+
+        {/* Logout Button */}
+        <div className='mb-8 mt-30 w-full px-4'>
+          <button
+            onClick={signOut}
+            className='w-full flex items-center justify-center gap-2 py-3 rounded-lg 
+            bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-[#0F0F0F] 
+            font-bold shadow-lg hover:from-[#FFA500] hover:to-[#FFD700] transition'
+          >
+            <LogOut className='w-5 h-5' />
+            Logout
+          </button>
+        </div>
       </div>
     </div>
   )

@@ -8,22 +8,17 @@ import GenerateVideos from './pages/GenerateVideos'
 import PostOnInstagram from './pages/PostOnInstagram'
 import PostOnX from './pages/PostOnX'
 
-
-const App = () => {
+export default function App() {
   return (
-    <div>
-      <Routes>
-        <Route path='/' element = {<Home />}/>
-        <Route path='/ai' element={<Layout />}>
-        <Route index element={<Dashboard/>}/>
-        <Route path='generate-image' element={<GenerateImages/>}/>
-        <Route path='generate-videos' element={<GenerateVideos/>}/>
-        <Route path='post-insta' element={<PostOnInstagram/>}/>
-        <Route path='post-x' element={<PostOnX/>}/>
-        </Route>
-      </Routes>
-    </div>
+    <Routes>
+      <Route path='/' element={<Home />} />
+      <Route path='/ai' element={<Layout />}>
+        <Route index element={<Dashboard />} />         {/* <-- FIXED */}
+        <Route path='generate-image' element={<GenerateImages />} />
+        <Route path='generate-videos' element={<GenerateVideos />} />
+        <Route path='post-insta' element={<PostOnInstagram />} />
+        <Route path='post-x' element={<PostOnX />} />
+      </Route>
+    </Routes>
   )
 }
-
-export default App
