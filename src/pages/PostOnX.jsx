@@ -201,7 +201,7 @@ const PostOnX = () => {
         </div>
 
         {/* Right Panel - Preview */}
-        <div className='flex-1 bg-[#0F0F0F] p-8 flex items-center justify-center relative z-10'>
+        <div className='flex-1 bg-gradient-to-br from-[#0F0F0F] via-[#1A1A1A] to-[#2A2A2A] p-8 flex items-center justify-center relative z-10'>
           {!tweetContent.trim() && tweets.every(t => !t.trim()) ? (
             <div className='text-center max-w-md'>
               <div className='w-32 h-32 mx-auto mb-6 rounded-full border-4 border-dashed border-[#FFD700] flex items-center justify-center'>
