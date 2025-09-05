@@ -34,7 +34,7 @@ const Sidebar = ({ sidebar, setSidebar }) => {
           <div className='absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-[#1A1A1A]'></div>
         </div>
         <h1 className='text-center font-semibold text-[#FFD700] text-lg'>{user?.fullName}</h1>
-        <p className='text-gray-400 text-sm'>Free Member</p>
+        <p className='text-gray-400 text-sm'>Premium Member</p>
 
         {/* Navigation Items */}
         <div className='px-4 mt-8 text-sm font-medium w-full space-y-2'>
