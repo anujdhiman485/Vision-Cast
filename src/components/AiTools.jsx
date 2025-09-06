@@ -2,12 +2,12 @@ import React from 'react'
 import { AiToolsData } from '../assets/assets.js'
 // import { AiToolsData } from '../assets/assets'
 import { useNavigate } from 'react-router-dom'
-import { useUser } from '@clerk/clerk-react'
+import { useAuth } from '../context/AuthContext'
 
 const AiTools = () => {
 
     const navigate = useNavigate()
-    const { user } = useUser()
+    const { user } = useAuth()
     
     return (
         <div className='px-4 sm:px-20 xl:px-32 my-24 bg-[#1A1A1A]'>

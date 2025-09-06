@@ -1,7 +1,7 @@
-import { useClerk, useUser } from '@clerk/clerk-react'
 import { House, Image, LogOut, SquarePen, Video } from 'lucide-react'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 
 const navItems = [
   { to: '/ai', label: 'Dashboard', Icon: House },
@@ -12,8 +12,7 @@ const navItems = [
 ]
 
 const Sidebar = ({ sidebar, setSidebar }) => {
-  const { user } = useUser()
-  const { signOut } = useClerk()
+  const { user, signOut } = useAuth()
 
   return (
     <div
