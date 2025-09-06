@@ -105,7 +105,7 @@ const SignUpPage = ({ onToggleToSignIn, onSuccess }) => {
                         <span className="gradient-text font-bold text-3xl">VisionCast</span>
                     </div>
                     <h1 className="text-4xl font-bold text-white mb-2">Join VisionCast</h1>
-                    <p className="text-gray-400 text-lg">Create your account and start your AI journey</p>
+                    <p className="text-gray-400 text-lg">Create your checking account and start your AI journey</p>
                 </div>
 
                 {/* Progress Indicator */}
