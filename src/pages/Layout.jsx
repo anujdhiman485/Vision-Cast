@@ -2,14 +2,27 @@ import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
-import { SignIn, useUser, UserButton, SignedIn } from '@clerk/clerk-react';
+import { useAuth } from '../context/AuthContext';
+import AuthForm from '../components/AuthForm';
+import UserButton from '../components/UserButton';
 
 const Layout = () => {
   const navigate = useNavigate();
   const [sidebar, setSidebar] = useState(false);
-  const { user } = useUser();
+  const { user } = useAuth();
 
-  return user ? (
+  // Redirect to auth page if not authenticated
+  React.useEffect(() => {
+    if (!user) {
+      navigate('/auth');
+    }
+  }, [user, navigate]);
+
+  if (!user) {
+    return null; // Don't render anything while redirecting
+  }
+
+  return (
     <div className="flex flex-col items-start justify-start h-screen bg-gradient-to-br from-[#0F0F0F] via-[#1A1A1A] to-[#2A2A2A] relative">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
@@ -38,19 +51,8 @@ const Layout = () => {
             <p className="text-[#FFD700] font-medium">{user?.firstName}</p>
           </div>
 
-          {/* Clerk user menu (avatar + popover) */}
-          <SignedIn>
-            <UserButton
-              appearance={{
-                elements: {
-                  avatarBox: 'ring-1 ring-[#333333] rounded-full',
-                  userButtonPopoverCard: 'bg-[#1A1A1A] border border-[#333333]',
-                  userButtonPopoverActionButton: 'hover:bg-[#2A2A2A]',
-                  userButtonPopoverFooter: 'border-t border-[#333333]',
-                },
-              }}
-            />
-          </SignedIn>
+          {/* User menu (avatar + popover) */}
+          <UserButton />
 
           {/* Mobile menu button */}
           <button
@@ -78,67 +80,6 @@ const Layout = () => {
             <div className="absolute bottom-1/3 right-1/3 w-64 h-64 bg-gradient-to-r from-yellow-500/3 to-orange-500/3 rounded-full blur-3xl animate-pulse delay-2000"></div>
           </div>
           <Outlet />
-        </div>
-      </div>
-    </div>
-  ) : (
-    // Custom Sign In Page with Dark Theme
-    <div className="flex items-center justify-center h-screen w-screen bg-gradient-to-br from-[#0F0F0F] via-[#1A1A1A] to-[#2A2A2A] relative">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-yellow-400/10 to-orange-400/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-yellow-500/5 to-orange-500/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
-      </div>
-
-      <div className="text-center max-w-md mx-auto p-8 relative z-10">
-        {/* Logo */}
-        <div className="flex items-center justify-center mb-8">
-          <Logo className="w-12 h-10 mr-3" />
-          <span className="text-[#FFD700] font-bold text-2xl">VisionCast</span>
-        </div>
-
-        {/* Welcome Message */}
-        <h1 className="text-3xl font-bold text-white mb-4">Welcome to VisionCast</h1>
-        <p className="text-gray-400 mb-8">Sign in to start creating amazing AI-powered content</p>
-
-        {/* Sign In Component (themed + redirects to /ai) */}
-        <div className="bg-[#1A1A1A] border border-[#333333] rounded-xl p-6">
-          <SignIn
-            appearance={{
-              variables: {
-                colorPrimary: '#FFD700',
-                colorText: '#ffffff',
-                colorTextSecondary: '#9CA3AF',
-                colorBackground: '#1A1A1A',
-                colorInputBackground: '#2A2A2A',
-                colorInputText: '#ffffff',
-                borderRadius: '0.75rem',
-              },
-              elements: {
-                card: 'bg-[#1A1A1A] border border-[#333333]',
-                headerTitle: 'text-[#FFD700]',
-                headerSubtitle: 'text-gray-400',
-                formButtonPrimary:
-                  'bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-[#0F0F0F] hover:opacity-90',
-                formFieldInput:
-                  'bg-[#2A2A2A] border-[#333333] text-white placeholder-gray-500 focus:ring-2 focus:ring-[#FFD700] focus:border-transparent',
-                socialButtonsBlockButton:
-                  'border-[#333333] text-white hover:bg-[#2A2A2A]',
-                footerActionLink: 'text-[#FFD700] hover:text-[#FFA500]',
-                dividerLine: 'bg-[#333333]',
-                dividerText: 'text-gray-500',
-              },
-            }}
-            redirectUrl="/ai"
-            signUpRedirectUrl="/ai"
-          />
-        </div>
-
-        {/* Features Preview */}
-        <div className="mt-8 grid grid-cols-3 gap-4 text-center">
-          <FeaturePill glyph="AI" label="AI Content" />
-          <FeaturePill glyph="📱" label="Auto Post" />
-          <FeaturePill glyph="📊" label="Analytics" />
         </div>
       </div>
     </div>

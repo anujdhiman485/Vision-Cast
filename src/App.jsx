@@ -7,11 +7,13 @@ import GenerateImages from './pages/GenerateImages'
 import GenerateVideos from './pages/GenerateVideos'
 import PostOnInstagram from './pages/PostOnInstagram'
 import PostOnX from './pages/PostOnX'
+import AuthPage from './pages/AuthPage'
 
 export default function App() {
   return (
     <Routes>
       <Route path='/' element={<Home />} />
+      <Route path='/auth' element={<AuthPage />} />
       <Route path='/ai' element={<Layout />}>
         <Route index element={<Dashboard />} />         {/* <-- FIXED */}
         <Route path='generate-image' element={<GenerateImages />} />

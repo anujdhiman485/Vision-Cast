@@ -2,12 +2,12 @@ import React from 'react'
 import { assets } from '../assets/assets'
 import { useNavigate } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
-import { useClerk, UserButton, useUser } from '@clerk/clerk-react'
+import { useAuth } from '../context/AuthContext'
+import UserButton from './UserButton'
 
 const Navbar = () => {
     const navigate = useNavigate()
-    const { user } = useUser()
-    const { openSignIn } = useClerk()
+    const { user } = useAuth()
     
     return (
         <div className='fixed z-50 w-full backdrop-blur-sm bg-[#0F0F0F]/90 flex justify-between 
@@ -30,19 +30,10 @@ const Navbar = () => {
 
             {/* User Authentication */}
             {user ? (
-                <div className=' rounded-full hover:scale-105 transition-all duration-300 font-medium shadow-lg
-                    hover:shadow-[0_8px_30px_rgb(255,215,0,0.3)]"'>
-                    <UserButton 
-                        appearance={{
-                            elements: {
-                                avatarBox: "border-2 border-[#FFD700]"
-                            }
-                        }}
-                    />
-                </div>
+                <UserButton />
             ) : (
                 <button 
-                    onClick={openSignIn}
+                    onClick={() => navigate('/auth')}
                     className="flex items-center gap-2 rounded-full text-sm cursor-pointer 
                     bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-[#0F0F0F] px-8 py-2.5 
                     hover:scale-105 transition-all duration-300 font-medium shadow-lg
